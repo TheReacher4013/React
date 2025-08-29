@@ -1,6 +1,11 @@
 import React, { useState } from "react";     
 const Header = () => {
     const [open, setOpen] = useState(false);
+    //why use (useState) because it allows us to manage the open/close state of the menu
+
+    //define = useState is a React Hook that lets you add state (data that can change) to your component.
+
+    //The useState function returns an array with two elements: the current state value and a function to update it. for example [open, setOpen].
 
     const handleOpen = () => {
         setOpen(!false);
