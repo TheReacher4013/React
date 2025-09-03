@@ -67,7 +67,7 @@ const KeyFeatures = () => {
           }
         </div>
 
-    </section>
+     </section>
   )
 }
 
