@@ -4,6 +4,7 @@ import BannerSection from './components/BannerSection';
 import KeyFeatures from './components/KeyFeatures';
 import HowItWorks from './components/HowItWorks';
 import Testimonials from './components/Testimonials';
+import SwiperComponent from './components/ui/Swiper';
  
 // import circle from './components/ui/circle';
 
@@ -16,7 +17,8 @@ const App = () => {
      <BannerSection/>
      <KeyFeatures/>
      <HowItWorks/>
-     <Testimonials/>
+     {/* <Testimonials/> */}
+     <SwiperComponent/>
       </main>
     </div>
   );
