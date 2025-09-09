@@ -5,6 +5,7 @@ import KeyFeatures from './components/KeyFeatures';
 import HowItWorks from './components/HowItWorks';
 import Testimonials from './components/Testimonials';
 import SwiperComponent from './components/ui/Swiper';
+import Footer from './components/Footer';
  
 // import circle from './components/ui/circle';
 
@@ -19,6 +20,7 @@ const App = () => {
      <HowItWorks/>
      {/* <Testimonials/> */}
      <SwiperComponent/>
+     <Footer/>
       </main>
     </div>
   );

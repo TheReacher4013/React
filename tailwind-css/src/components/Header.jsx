@@ -1,4 +1,5 @@
 import React, { useState } from "react";     
+import Heading from "./ui/Heading";
 const Header = () => {
     const [open, setOpen] = useState(false);
     //why use (useState) because it allows us to manage the open/close state of the menu
@@ -14,13 +15,13 @@ const Header = () => {
         setOpen(false);
     };
     return (
-        <header className="absolute top-0 w-full z-100">
-            <div className="flex justify-between items-center max-w-[90%] border mx-auto">
+        <header className="absolute top-0 w-full z-100 border-b-2 border-purple-500">
+            <div className="flex justify-between items-center max-w-[90%]">
                 <a href="#">
                     <img
                         src="https://readymadeui.com/readymadeui.svg"
                         alt="logo"
-                        className="w-50 aspect-[1/0.4] border"
+                        className="w-50 aspect-[1/0.4] "
                     />
                 </a>
 
@@ -74,6 +75,7 @@ const Header = () => {
                         </button>
                     )}
             </div>
+        
         </header>
     );
 };

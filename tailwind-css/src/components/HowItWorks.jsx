@@ -36,7 +36,9 @@ const HowItWorks = () => {
             </div>
 
             <div className='flex gap-6 justify-center items-center max-w-[90%] mx-auto'>
+
                 <div className='flex-1 space-y-8 relative'>
+                    
                     {content.map((item, index) => (
                         <div key={index} className='flex gap-4 items-start pr-6 relative'>
                             <div className="flex flex-col items-center relative">
