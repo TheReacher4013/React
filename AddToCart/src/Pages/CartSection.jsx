@@ -18,9 +18,9 @@ const CartSection = () => {
                             <li key={index} className="mb-4 p-3 rounded">
                                 <p className="font-semibold">{item.name}</p>
                                 <p>
-                                    Price: ₹{item.price} <br />
+                                    Price: {item.price} <br />
                                     Quantity: {item.quantity} <br />
-                                    <strong>Total: ₹{item.price * item.quantity}</strong>
+                                    <strong>Total: {item.price * item.quantity}</strong>
                                 </p>
                                 <button
                                     className="bg-red-600 text-white px-2 py-1 rounded mt-2"
@@ -33,7 +33,7 @@ const CartSection = () => {
                     </ul>
 
                     <h3 className="mt-6 text-lg font-bold">
-                        Cart Value: ₹{total}
+                        Cart Value:{total}
                     </h3>
                 </div>
             )}
