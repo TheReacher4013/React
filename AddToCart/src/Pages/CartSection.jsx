@@ -4,7 +4,6 @@ import { CartContext } from "../context/CartContext";
 const CartSection = () => {
     const { cart, removeFromCart } = useContext(CartContext);
 
-    // Total cart value nikalna
     const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     return (
@@ -16,7 +15,7 @@ const CartSection = () => {
                 <div>
                     <ul>
                         {cart.map((item, index) => (
-                            <li key={index} className="mb-4 border p-3 rounded">
+                            <li key={index} className="mb-4 p-3 rounded">
                                 <p className="font-semibold">{item.name}</p>
                                 <p>
                                     Price: ₹{item.price} <br />
