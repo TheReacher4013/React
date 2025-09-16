@@ -1,11 +1,9 @@
-// ProductSection.jsx
 import { useContext } from "react";
- import { CartContext } from "./Cartcontext"; 
+import { CartContext } from "./Cartcontext";
 
 export default function ProductSection({ products }) {
     const { addToCart } = useContext(CartContext);
 
-    // ⭐ Product rating stars render karne ka function
     const renderStars = (rating) => {
         const stars = [];
         const fullStars = Math.floor(rating);
@@ -41,7 +39,7 @@ export default function ProductSection({ products }) {
 
     return (
         <main className="flex-1 max-w-[90%] mx-auto">
-            {/* Section Heading */}
+
             <div className="bg-white py-4 px-6 mb-4 rounded shadow-sm">
                 <h1 className="text-2xl font-bold text-gray-800">
                     Featured Products
@@ -51,7 +49,6 @@ export default function ProductSection({ products }) {
                 </p>
             </div>
 
-            {/* Product Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {products.map((product) => (
                     <div
@@ -70,16 +67,12 @@ export default function ProductSection({ products }) {
                             <p className="text-gray-600 text-sm mb-2 line-clamp-2 h-10">
                                 {product.desc}
                             </p>
-
-                            {/* Rating */}
                             <div className="flex items-center mb-2">
                                 <div className="flex">{renderStars(product.rating)}</div>
                                 <span className="text-blue-600 text-sm ml-1">
                                     {product.rating}
                                 </span>
                             </div>
-
-                            {/* Price + Add to Cart Button */}
                             <div className="flex items-center justify-between mt-3">
                                 <span className="text-xl font-bold text-gray-900">
                                     ${product.price.toFixed(2)}

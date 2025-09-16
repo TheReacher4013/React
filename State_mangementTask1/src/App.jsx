@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import ProductSection from "./components/ProductSection";
+import CartSection from "./components/CartSection";
 import { CartProvider } from "./components/Cartcontext";
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
         desc: "7.1 surround sound, RGB lighting",
         price: 79.99,
         image:
-          "https://images.unsplash.com/photo-1599669454699-248893623464?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
+          "https://images.unsplash.com/photo-1677086813101-496781a0f327?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2FtaW5nJTIwaGVhZHNldHxlbnwwfHwwfHx8MA%3D%3D",
         rating: 4.2,
       },
       {
@@ -75,9 +76,14 @@ function App() {
     <CartProvider>
       <Header toggleCart={toggleCart} />
       <ProductSection products={products} />
+
+      {isCartOpen && (
+        <div className="fixed right-4 top-16 w-80 bg-white shadow-lg rounded p-4 border border-gray-200 z-50">
+          <CartSection />
+        </div>
+      )}
     </CartProvider>
   );
 }
 
 export default App;
-

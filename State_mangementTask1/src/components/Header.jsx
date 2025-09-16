@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { CartContext } from "./Cartcontext";
+import { CartContext } from "./Cartcontext.jsx";
 
 export default function Header({ toggleCart }) {
     const { cart } = useContext(CartContext);
+    const cartItemsCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
 
     return (
         <header className="w-full bg-[#131921] py-3 shadow sticky top-0 z-50">
@@ -35,9 +36,9 @@ export default function Header({ toggleCart }) {
                         />
                     </svg>
 
-                    {cart.length > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-[#830b21] text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                            {cart.length}
+                    {cartItemsCount > 0 && (
+                        <span className="absolute -top-1 -right-1 bg-[#ff9900] text-black text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                            {cartItemsCount}
                         </span>
                     )}
                 </button>
