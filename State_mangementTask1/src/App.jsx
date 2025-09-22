@@ -80,6 +80,7 @@ function App() {
       {isCartOpen && (
         <div className="fixed right-4 top-16 w-80 bg-white shadow-lg rounded p-4 border border-gray-200 z-50">
           <CartSection />
+          {console.log("Cart toggled")}
         </div>
       )}
     </CartProvider>

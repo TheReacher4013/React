@@ -9,6 +9,8 @@ export default function CartSection() {
         decreaseQuantity,
         totalPrice,
     } = useContext(CartContext);
+    console.log("CartContext:", CartContext);
+    console.log("Cart Items:", cart);
 
     return (
         <div className="p-4 border mt-4">
