@@ -1,3 +1,4 @@
+// import { increment, decrement, reset } from './action';
 import { createSlice } from "@reduxjs/toolkit";
 
 const countReducer = createSlice({
@@ -10,10 +11,15 @@ const countReducer = createSlice({
         decrement: (state) => {
             state.count -= 1;
         },
+        reset: (state) => {
+            state.count = 0;
+        }
     },
 });
 
-export const { increment, decrement } =
+export const { increment, decrement, reset } =
     countReducer.actions;
 
 export default countReducer.reducer;
+
+

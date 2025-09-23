@@ -32,8 +32,9 @@ const App = () => {
       <div>{count} count</div>
       <button onClick={() => dispatch(increment())}>
         Increment
-      </button>
+      </button>     
       <Decrement />
+      <Reset />
     </>
   );
 };
