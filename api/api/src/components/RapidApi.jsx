@@ -48,7 +48,7 @@ const RapidApi = () => {
 
     //  user change filter and recall out api with new data
     const handleFilterChange = (key, value) => {
-        // console.log(e);
+        console.log(e);
     };
 
     useEffect(() => {
@@ -56,9 +56,9 @@ const RapidApi = () => {
     }, []);
 
     //  updating stage
-    // useEffect(() => {
-    //   fetchMovies();
-    // }, [filters]);
+    useEffect(() => {
+      fetchMovies();
+    }, [filters]);
 
     if (loading) return <h2>LOADING.......</h2>;
 
@@ -73,6 +73,7 @@ const RapidApi = () => {
                     <option value="all">ALL</option>
                     <option value="action">Action</option>
                 </select>
+                {/* <input onChange={}/> */}
             </div>
             <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-10 min-h-screen">
                 {movies &&
