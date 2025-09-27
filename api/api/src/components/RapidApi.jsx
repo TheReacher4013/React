@@ -22,8 +22,8 @@ const RapidApi = () => {
         url: "https://movie-database-api1.p.rapidapi.com/list_movies.json",
         params: filters,
         headers: {
-            "x-rapidapi-key": import.meta.env.VITE_API_KEY,
-            "x-rapidapi-host": import.meta.env.VITE_API_HOST,
+            "X-RapidAPI-Key": import.meta.env.VITE_API_KEY,
+            "X-RapidAPI-Host": import.meta.env.VITE_API_HOST,
         },
     };
 
