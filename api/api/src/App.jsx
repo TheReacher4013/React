@@ -45,7 +45,7 @@ const App = () => {
 
 //this is RapidApi logic using async and await
   async function fetchData() {
-    console.log("hello");
+    // console.log("hello");
     try {
       const response = await fetch(
         "https://jsonplaceholder.typicode.com/users/1"
@@ -87,3 +87,49 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
+
+// import React, { useEffect, useState } from 'react'
+// // import RapidAPI from './components/RapidAPI';
+// import axios from 'axios';
+// import Form from './components/Form';
+// import RapidApi from './components/RapidApi';
+
+// const App = () => {
+//   let [user, setUser] = useState(null);
+//   let [error, setError] = useState(null);
+//   let [loading, setLoading] = useState(true)
+//   // console.log(user);
+
+
+
+//   useEffect(() => {
+//     async function fetchUser() {
+//       const respons = await axios.get(
+//         "https://jsonplaceholder.typicode.com/users/1"
+//       );
+//       setUser(respons.data);
+//     }
+//     fetchUser();
+//   }, []);
+
+//   return (
+//     <>
+
+//       <h1>Rapid API component </h1>
+//       <RapidApi/>
+//       {/* <Form/> */}
+//       <br />
+//       <br />
+//       <br />
+//       <br />
+//       <h2>Wel-Come{user?.name}</h2>
+
+//     </>
+//   );
+// };
+
+// export default App

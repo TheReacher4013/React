@@ -22,8 +22,8 @@ const RapidApi = () => {
         url: "https://movie-database-api1.p.rapidapi.com/list_movies.json",
         params: filters,
         headers: {
-            "X-RapidAPI-Key": import.meta.env.VITE_API_KEY,
-            "X-RapidAPI-Host": import.meta.env.VITE_API_HOST,
+            'x-rapidapi-key': import.meta.env.VITE_API_KEY,
+            'x-rapidapi-host': import.meta.env.VITE_API_HOST,
         },
     };
 
@@ -48,7 +48,10 @@ const RapidApi = () => {
 
     //  user change filter and recall out api with new data
     const handleFilterChange = (key, value) => {
-        console.log(e);
+        setFilters((prev) => ({
+            ...prev,
+            [key]: value,
+        }));
     };
 
     useEffect(() => {
@@ -57,7 +60,7 @@ const RapidApi = () => {
 
     //  updating stage
     useEffect(() => {
-      fetchMovies();
+        fetchMovies();
     }, [filters]);
 
     if (loading) return <h2>LOADING.......</h2>;
@@ -69,10 +72,41 @@ const RapidApi = () => {
             <div className="my-14 px-20">
                 <select
                     value={filters.genre}
-                    onChange={(event) => handleFilterChange(event)}>
+                    onChange={(event) => handleFilterChange("genre", event.target.value)}>
                     <option value="all">ALL</option>
                     <option value="action">Action</option>
+                    <option value="comedy">Comedy</option>
+                    <option value="drama">Drama</option>
                 </select>
+
+                {/* //for quality check */}
+
+                <select
+                    value={filters.quality}
+                    onChange={(event) =>
+                        handleFilterChange("quality", event.target.value)
+                    }>
+                    <option value="all">All Quality</option>
+                    <option value="720">720</option>
+                    <option value="1080p">1080p</option>
+                    <option value="2160p">2160p</option>
+                    <option value="3D">3D</option>
+                </select>
+
+
+                {/* //Rating select  */}
+                <select
+                    value={filters.minimum_rating}
+                    onChange={(event) =>
+                        handleFilterChange("minimum_rating", event.target.value)
+                    }>
+                    <option value="0">All Rating</option>
+                    <option value="5">5+</option>
+                    <option value="7">7+</option>
+                    <option value="8">8+</option>
+                    <option value="9">9+</option>
+                </select>
+
                 {/* <input onChange={}/> */}
             </div>
             <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-10 min-h-screen">
@@ -90,3 +124,6 @@ const RapidApi = () => {
 };
 
 export default RapidApi;
+
+
+
