@@ -15,6 +15,13 @@ const RapidApi = () => {
         sort_by: "date_added",
         order_by: "asc",
         with_rt_ratings: "false",
+
+        // page: '1',
+        // size: '10',
+        // search: 'Fullmetal',
+        // genres: 'Fantasy,Drama',
+        // sortBy: 'ranking',
+        // sortOrder: 'asc'
     });
 
     const apiConfig = {
@@ -72,7 +79,7 @@ const RapidApi = () => {
             <div className="my-14 px-20">
                 <select
                     value={filters.genre}
-                    onChange={(event) => handleFilterChange("genre", event.target.value)}>
+                    onChange={(event) => handleFilterChange("genres", event.target.value)}>
                     <option value="all">ALL</option>
                     <option value="action">Action</option>
                     <option value="comedy">Comedy</option>
