@@ -6,27 +6,27 @@ const RapidApi = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [filters, setFilters] = useState({
-        limit: "20",
-        page: "1",
-        quality: "all",
-        genre: "all",
-        minimum_rating: "8",
-        query_term: "0",
-        sort_by: "date_added",
-        order_by: "asc",
-        with_rt_ratings: "false",
+        // limit: "20",
+        // page: "1",
+        // quality: "all",
+        // genre: "all",
+        // minimum_rating: "8",
+        // query_term: "0",
+        // sort_by: "date_added",
+        // order_by: "asc",
+        // with_rt_ratings: "false",
 
-        // page: '1',
-        // size: '10',
-        // search: 'Fullmetal',
-        // genres: 'Fantasy,Drama',
-        // sortBy: 'ranking',
-        // sortOrder: 'asc'
+        page: '1',
+        size: '10',
+        search: 'Fullmetal',
+        genres: 'Fantasy,Drama',
+        sortBy: 'ranking',
+        sortOrder: 'asc'
     });
 
     const apiConfig = {
         method: "GET",
-        url: "https://movie-database-api1.p.rapidapi.com/list_movies.json",
+        url: "https://anime-db.p.rapidapi.com/anime",
         params: filters,
         headers: {
             'x-rapidapi-key': import.meta.env.VITE_API_KEY,
@@ -61,9 +61,9 @@ const RapidApi = () => {
         }));
     };
 
-    useEffect(() => {
-        fetchMovies();
-    }, []);
+    // useEffect(() => {
+    //     fetchMovies();
+    // }, []);
 
     //  updating stage
     useEffect(() => {
@@ -81,7 +81,7 @@ const RapidApi = () => {
                     value={filters.genre}
                     onChange={(event) => handleFilterChange("genres", event.target.value)}>
                     <option value="all">ALL</option>
-                    <option value="action">Action</option>
+                    <option value="action">action</option>
                     <option value="comedy">Comedy</option>
                     <option value="drama">Drama</option>
                 </select>
@@ -102,7 +102,7 @@ const RapidApi = () => {
 
 
                 {/* //Rating select  */}
-                <select
+                 <select
                     value={filters.minimum_rating}
                     onChange={(event) =>
                         handleFilterChange("minimum_rating", event.target.value)
@@ -112,7 +112,7 @@ const RapidApi = () => {
                     <option value="7">7+</option>
                     <option value="8">8+</option>
                     <option value="9">9+</option>
-                </select>
+                </select> 
 
                 {/* <input onChange={}/> */}
             </div>
