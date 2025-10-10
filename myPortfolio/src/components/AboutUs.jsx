@@ -2,7 +2,7 @@ import React from 'react'
 
 const AboutUs = () => {
   return (
-    <section className="min-h-screen bg-gray-50 flex items-center justify-center px-6 py-16">
+    <section className="min-h-screen bg-[#D1ED81] flex items-center justify-center px-6 py-16">
       <div className="max-w-3xl ">
         <h1 className="text-3xl font-extrabold text-red-600 uppercase tracking-widest mb-6">
           ABOUT

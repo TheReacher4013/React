@@ -1,6 +1,6 @@
 import React from 'react';
 import Navbar from '../src/components/header/navbar';
-import Testimonials from './components/Testimonials';
+import Education from './components/Education';
 import Contact from './components/Contact';
 import AboutUs from './components/AboutUs';
 import Home from './pages/Home';
@@ -12,7 +12,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/testimonials" element={<Testimonials />} />
+        <Route path="/Education" element={<Education />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about-us" element={<AboutUs />} />
         <Route

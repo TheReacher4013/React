@@ -4,7 +4,7 @@ import logoGrey from "../../assets/logo-grey.png";
 
 const navItems = [
     { label: "AboutUs", path: "/about-us" },
-    { label: "Testimonials", path: "/testimonials" },
+    { label: "Education", path: "/education" },
     { label: "Contact", path: "/contact" },
 ];
 
