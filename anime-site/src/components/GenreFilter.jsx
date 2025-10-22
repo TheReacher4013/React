@@ -1,24 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+
+const genresList = [
+    "Action",
+    "Adventure",
+    "Comedy",
+    "Drama",
+    "Fantasy",
+    "Magic",
+    "Romance",
+    "Sci-Fi",
+    "Slice of Life",
+];
 
 const GenreFilter = ({ onSelect }) => {
-    const [genres, setGenres] = useState([]);
-
-    useEffect(() => {
-        fetch("https://api.jikan.moe/v4/genres/anime")
-            .then(res => res.json())
-            .then(data => setGenres(data.data))
-            .catch(err => console.log(err));
-    }, []);
-
     return (
-        <div className="flex flex-wrap gap-2 mb-6">
-            {genres.map(genre => (
+        <div className="flex flex-wrap gap-2">
+            {genresList.map((genre, index) => (
                 <button
-                    key={genre.mal_id}
-                    onClick={() => onSelect(genre.name)}
-                    className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-blue-500 hover:text-white transition"
+                    key={index}
+                    onClick={() => onSelect(genre)}
+                    className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
                 >
-                    {genre.name}
+                    {genre}
                 </button>
             ))}
         </div>
