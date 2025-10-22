@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+// import "swiper/css";
+// import "swiper/css/navigation";
+// import "swiper/css/pagination";
 import SearchBar from "../components/SearchBar";
 import GenreFilter from "../components/GenreFilter";
 import AnimeCard from "../components/AnimeCard";
+import LandingPage from "./LandingPage";
 
 const Home = () => {
     const [animes, setAnimes] = useState([]);
@@ -77,34 +81,74 @@ const Home = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [loading]);
 
+//     return (
+//         <>
+//         <div className="p-8">
+//             {/* Search + Genre Filter */}
+//             <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+//                 <SearchBar onSearch={handleSearch} />
+//                 <GenreFilter onSelect={genre => handleSearch(genre)} />
+//             </div>
+
+//             {/* Error Message */}
+//             {errorMsg && (
+//                 <p className="text-center text-red-500 mb-4 font-semibold">{errorMsg}</p>
+//             )}
+
+//             {/* Anime Grid */}
+//             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+//                 {Array.isArray(animes) && animes.length > 0 ? (
+//                     animes.map(anime => (
+//                         <AnimeCard key={anime.mal_id} anime={anime} />
+//                     ))
+//                 ) : (
+//                     !loading && <p className="text-center col-span-full text-gray-400">No anime found.</p>
+//                 )}
+//             </div>
+
+//             {/* Loading Indicator */}
+//             {loading && <p className="text-center mt-4 text-black500">Loading...</p>}
+//         </div>
+//         <LandingPage />
+//         </>
+//     );
+// };
+
     return (
-        <div className="p-8">
-            {/* Search + Genre Filter */}
-            <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-                <SearchBar onSearch={handleSearch} />
-                <GenreFilter onSelect={genre => handleSearch(genre)} />
-            </div>
+        <>
+            {/* 🔹 Landing Page at Top */}
+            <LandingPage />
 
-            {/* Error Message */}
-            {errorMsg && (
-                <p className="text-center text-red-500 mb-4 font-semibold">{errorMsg}</p>
-            )}
+            <div className="p-8">
+                {/* Search + Genre Filter */}
+                <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                    <SearchBar onSearch={handleSearch} />
+                    <GenreFilter onSelect={(genre) => handleSearch(genre)} />
+                </div>
 
-            {/* Anime Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {Array.isArray(animes) && animes.length > 0 ? (
-                    animes.map(anime => (
-                        <AnimeCard key={anime.mal_id} anime={anime} />
-                    ))
-                ) : (
-                    !loading && <p className="text-center col-span-full text-gray-400">No anime found.</p>
+                {/* Error Message */}
+                {errorMsg && (
+                    <p className="text-center text-red-500 mb-4 font-semibold">{errorMsg}</p>
                 )}
+
+                {/* Anime Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    {Array.isArray(animes) && animes.length > 0 ? (
+                        animes.map((anime) => <AnimeCard key={anime.mal_id} anime={anime} />)
+                    ) : (
+                        !loading && (
+                            <p className="text-center col-span-full text-gray-400">
+                                No anime found.
+                            </p>
+                        )
+                    )}
+                </div>
+
+                {/* Loading Indicator */}
+                {loading && <p className="text-center mt-4 text-gray-500">Loading...</p>}
             </div>
-
-            {/* Loading Indicator */}
-            {loading && <p className="text-center mt-4 text-black500">Loading...</p>}
-        </div>
+        </>
     );
-};
 
+};
 export default Home;
