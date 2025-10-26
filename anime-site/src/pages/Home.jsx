@@ -15,14 +15,14 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
 
-    // Debounce query to avoid too many requests
+    // Debounce search input
     useEffect(() => {
         const delay = setTimeout(() => setDebouncedQuery(query), 800);
         return () => clearTimeout(delay);
     }, [query]);
 
-    // Fetch top anime
-    const fetchAnimes = async (searchQuery = "", pageNum = 1) => {
+    //  Fetch function with caching + retry protection
+    const fetchAnimes = async (searchQuery = "", pageNum = 1, retryCount = 0) => {
         setLoading(true);
         setErrorMsg("");
 
@@ -30,14 +30,29 @@ const Home = () => {
             ? `https://api.jikan.moe/v4/anime?q=${searchQuery}&limit=20&page=${pageNum}`
             : `https://api.jikan.moe/v4/top/anime?page=${pageNum}`;
 
+        // ✅ Check cache first (avoid extra API calls)
+        const cacheKey = `${searchQuery || "top"}-page-${pageNum}`;
+        const cachedData = localStorage.getItem(cacheKey);
+        if (cachedData) {
+            console.log("✅ Loaded from cache:", cacheKey);
+            setAnimes(JSON.parse(cachedData));
+            setLoading(false);
+            return;
+        }
+
         try {
             const res = await fetch(url);
 
+            // Handle rate limits safely
             if (res.status === 429) {
-                console.warn("⚠️ Too many requests — retrying once in 3 seconds...");
-                setErrorMsg("Rate limit reached. Retrying...");
-                await new Promise(r => setTimeout(r, 3000));
-                return fetchAnimes(searchQuery, pageNum);
+                if (retryCount < 2) {
+                    console.warn(` Too many requests — retrying in 3s (attempt ${retryCount + 1})`);
+                    setErrorMsg("Rate limit reached. Retrying...");
+                    await new Promise((r) => setTimeout(r, 3000));
+                    return fetchAnimes(searchQuery, pageNum, retryCount + 1);
+                } else {
+                    throw new Error("Rate limit exceeded. Please try again later.");
+                }
             }
 
             if (!res.ok) throw new Error(`API error: ${res.status}`);
@@ -46,33 +61,36 @@ const Home = () => {
 
             if (data && Array.isArray(data.data)) {
                 if (pageNum === 1) setAnimes(data.data);
-                else setAnimes(prev => [...prev, ...data.data]);
+                else setAnimes((prev) => [...prev, ...data.data]);
+
+                // Save to cache
+                localStorage.setItem(cacheKey, JSON.stringify(data.data));
             } else {
                 setErrorMsg("No anime found for this search.");
             }
         } catch (err) {
             console.error("Fetch error:", err.message);
-            setErrorMsg("Failed to load data. Please try again later.");
+            setErrorMsg(err.message || "Failed to load data. Please try again later.");
         } finally {
             setLoading(false);
         }
     };
 
-    // Run fetch when debouncedQuery or page changes
+    // 🔹 Fetch when debounced query or page changes
     useEffect(() => {
         fetchAnimes(debouncedQuery, page);
     }, [debouncedQuery, page]);
 
-    // Handle search input
+    // 🔹 Handle search input
     const handleSearch = (searchQuery) => {
         setQuery(searchQuery);
         setPage(1);
     };
 
-    // Infinite scroll
+    // 🔹 Infinite scroll (with delay)
     const handleScroll = () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 2 && !loading) {
-            setTimeout(() => setPage(prev => prev + 1), 600);
+            setTimeout(() => setPage((prev) => prev + 1), 600);
         }
     };
 
@@ -81,42 +99,9 @@ const Home = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, [loading]);
 
-//     return (
-//         <>
-//         <div className="p-8">
-//             {/* Search + Genre Filter */}
-//             <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-//                 <SearchBar onSearch={handleSearch} />
-//                 <GenreFilter onSelect={genre => handleSearch(genre)} />
-//             </div>
-
-//             {/* Error Message */}
-//             {errorMsg && (
-//                 <p className="text-center text-red-500 mb-4 font-semibold">{errorMsg}</p>
-//             )}
-
-//             {/* Anime Grid */}
-//             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-//                 {Array.isArray(animes) && animes.length > 0 ? (
-//                     animes.map(anime => (
-//                         <AnimeCard key={anime.mal_id} anime={anime} />
-//                     ))
-//                 ) : (
-//                     !loading && <p className="text-center col-span-full text-gray-400">No anime found.</p>
-//                 )}
-//             </div>
-
-//             {/* Loading Indicator */}
-//             {loading && <p className="text-center mt-4 text-black500">Loading...</p>}
-//         </div>
-//         <LandingPage />
-//         </>
-//     );
-// };
-
     return (
         <>
-            {/* 🔹 Landing Page at Top */}
+            {/*  Landing Page at Top */}
             <LandingPage />
 
             <div className="p-8">
@@ -149,6 +134,6 @@ const Home = () => {
             </div>
         </>
     );
-
 };
+
 export default Home;

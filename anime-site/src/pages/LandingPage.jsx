@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -9,22 +9,50 @@ const LandingPage = () => {
     const [featured, setFeatured] = useState([]);
     const [trending, setTrending] = useState([]);
 
-    // Fetch top anime for banner and another set for posters
+    // Helper function: fetch with cache + retry on 429
+    const fetchWithCache = async (url, cacheKey, retryCount = 0) => {
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) {
+            console.log(`✅ Loaded from cache: ${cacheKey}`);
+            return JSON.parse(cached);
+        }
+
+        try {
+            const res = await fetch(url);
+
+            if (res.status === 429) {
+                if (retryCount < 2) {
+                    console.warn(`⚠️ Too many requests — retrying in 3s (attempt ${retryCount + 1})`);
+                    await new Promise((r) => setTimeout(r, 3000));
+                    return fetchWithCache(url, cacheKey, retryCount + 1);
+                } else {
+                    throw new Error("Rate limit exceeded. Try again later.");
+                }
+            }
+
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            const data = await res.json();
+            localStorage.setItem(cacheKey, JSON.stringify(data.data || []));
+            return data.data || [];
+        } catch (err) {
+            console.error("Fetch error:", err.message);
+            return [];
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                // First Swiper (main big banner)
-                const topRes = await fetch("https://api.jikan.moe/v4/top/anime?limit=8");
-                const topData = await topRes.json();
-                setFeatured(topData.data || []);
+            const featuredData = await fetchWithCache(
+                "https://api.jikan.moe/v4/top/anime?limit=8",
+                "featured-page-1"
+            );
+            setFeatured(featuredData);
 
-                // Second Swiper (poster row) — get next page for variety
-                const trendingRes = await fetch("https://api.jikan.moe/v4/top/anime?page=2&limit=15");
-                const trendingData = await trendingRes.json();
-                setTrending(trendingData.data || []);
-            } catch (err) {
-                console.error("Error fetching anime:", err);
-            }
+            const trendingData = await fetchWithCache(
+                "https://api.jikan.moe/v4/top/anime?page=2&limit=15",
+                "trending-page-2"
+            );
+            setTrending(trendingData);
         };
 
         fetchData();
@@ -45,21 +73,17 @@ const LandingPage = () => {
                 autoplay={{ delay: 4000, disableOnInteraction: false }}
                 className="w-full h-[80vh] rounded-b-2xl"
             >
-                {featured.map((anime) => (
-                    <SwiperSlide key={anime.mal_id}>
+                {featured.map((anime, i) => (
+                    <SwiperSlide key={`${anime.mal_id}-${i}`}>
                         <div className="relative w-full h-[80vh]">
-                            {/* Poster image */}
                             <img
                                 src={anime.images.jpg.large_image_url}
                                 alt={anime.title}
                                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                             />
 
-                            {/* Info overlay */}
                             <div className="absolute bottom-16 left-10 max-w-lg z-10">
-                                <h2 className="text-4xl font-bold mb-3 drop-shadow-md">
-                                    {anime.title}
-                                </h2>
+                                <h2 className="text-4xl font-bold mb-3 drop-shadow-md">{anime.title}</h2>
                                 <p className="text-gray-300 text-sm mb-5 line-clamp-3">
                                     {anime.synopsis?.slice(0, 200)}...
                                 </p>
@@ -99,8 +123,8 @@ const LandingPage = () => {
                     autoplay={{ delay: 3500, disableOnInteraction: false }}
                     className="poster-swiper"
                 >
-                    {trending.map((anime) => (
-                        <SwiperSlide key={anime.mal_id}>
+                    {trending.map((anime, i) => (
+                        <SwiperSlide key={`${anime.mal_id}-${i}`}>
                             <div className="cursor-pointer hover:scale-105 transition-transform duration-300">
                                 <div className="w-[160px] h-[230px] overflow-hidden rounded-lg shadow-lg">
                                     <img
@@ -109,9 +133,7 @@ const LandingPage = () => {
                                         className="w-full h-full object-cover"
                                     />
                                 </div>
-                                <p className="mt-2 text-center text-sm font-medium truncate">
-                                    {anime.title}
-                                </p>
+                                <p className="mt-2 text-center text-sm font-medium truncate">{anime.title}</p>
                             </div>
                         </SwiperSlide>
                     ))}
