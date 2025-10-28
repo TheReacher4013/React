@@ -43,7 +43,7 @@ const LandingPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             const featuredData = await fetchWithCache(
-                "https://api.jikan.moe/v4/top/anime?limit=8",
+                "https://api.jikan.moe/v4/anime?order_by=score&sort=desc&limit=10&page=1",
                 "featured-page-1"
             );
             setFeatured(featuredData);
