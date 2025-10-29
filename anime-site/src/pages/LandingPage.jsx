@@ -13,7 +13,7 @@ const LandingPage = () => {
     const fetchWithCache = async (url, cacheKey, retryCount = 0) => {
         const cached = localStorage.getItem(cacheKey);
         if (cached) {
-            console.log(`✅ Loaded from cache: ${cacheKey}`);
+            console.log(` Loaded from cache: ${cacheKey}`);
             return JSON.parse(cached);
         }
 
@@ -22,7 +22,7 @@ const LandingPage = () => {
 
             if (res.status === 429) {
                 if (retryCount < 2) {
-                    console.warn(`⚠️ Too many requests — retrying in 3s (attempt ${retryCount + 1})`);
+                    console.warn(` Too many requests — retrying in 3s (attempt ${retryCount + 1})`);
                     await new Promise((r) => setTimeout(r, 3000));
                     return fetchWithCache(url, cacheKey, retryCount + 1);
                 } else {
@@ -63,7 +63,7 @@ const LandingPage = () => {
             {/* Background gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70 z-0"></div>
 
-            {/* 🎬 MAIN HERO SLIDER */}
+            {/*  MAIN HERO SLIDER */}
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 spaceBetween={20}
@@ -111,7 +111,7 @@ const LandingPage = () => {
                 ))}
             </Swiper>
 
-            {/* 🍿 TRENDING ROW */}
+            {/*  TRENDING ROW */}
             <div className="mt-12 px-8">
                 <h3 className="text-2xl font-semibold mb-4">🔥 Trending Now</h3>
 

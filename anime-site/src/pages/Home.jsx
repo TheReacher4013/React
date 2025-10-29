@@ -30,11 +30,11 @@ const Home = () => {
             ? `https://api.jikan.moe/v4/anime?q=${searchQuery}&limit=20&page=${pageNum}`
             : `https://api.jikan.moe/v4/top/anime?page=${pageNum}`;
 
-        // ✅ Check cache first (avoid extra API calls)
+        //  Check cache first (avoid extra API calls)
         const cacheKey = `${searchQuery || "top"}-page-${pageNum}`;
         const cachedData = localStorage.getItem(cacheKey);
         if (cachedData) {
-            console.log("✅ Loaded from cache:", cacheKey);
+            console.log(" Loaded from cache:", cacheKey);
             setAnimes(JSON.parse(cachedData));
             setLoading(false);
             return;
