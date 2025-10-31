@@ -25,8 +25,11 @@ const AnimeCard = ({ anime }) => {
 
     return (
         <>
+            {/* Card */}
             <div
-                className="bg-white shadow-lg rounded overflow-hidden hover:scale-105 transform transition cursor-pointer"
+                className="bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 
+                   shadow-lg rounded overflow-hidden hover:scale-105 transform transition 
+                   cursor-pointer"
                 onClick={() => setShowModal(true)}
             >
                 <img
@@ -39,12 +42,15 @@ const AnimeCard = ({ anime }) => {
                 </div>
             </div>
 
+            {/* Modal */}
             {showModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded max-w-2xl w-full relative">
+                    <div className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 
+                          p-6 rounded max-w-2xl w-full relative shadow-2xl border border-gray-600/40">
                         <button
                             onClick={() => setShowModal(false)}
-                            className="absolute top-2 right-2 text-xl font-bold text-gray-600 hover:text-gray-900"
+                            className="absolute top-2 right-2 text-2xl font-bold text-gray-600 dark:text-gray-300 
+                         hover:text-black dark:hover:text-white"
                         >
                             &times;
                         </button>
@@ -52,7 +58,7 @@ const AnimeCard = ({ anime }) => {
                         {!loading && details ? (
                             <>
                                 <h2 className="text-2xl font-bold mb-4">{details.title}</h2>
-                                <p className="text-sm mb-4">
+                                <p className="text-sm mb-4 leading-relaxed">
                                     {details.synopsis || "No synopsis available."}
                                 </p>
 
@@ -63,14 +69,18 @@ const AnimeCard = ({ anime }) => {
                                         src={`https://www.youtube.com/embed/${details.trailer.youtube_id}`}
                                         title="Anime Trailer"
                                         allowFullScreen
-                                        className="rounded"
+                                        className="rounded-md shadow-md"
                                     ></iframe>
                                 ) : (
-                                    <p className="text-gray-500">Trailer not available</p>
+                                    <p className="text-gray-600 dark:text-gray-400">
+                                        Trailer not available
+                                    </p>
                                 )}
                             </>
                         ) : (
-                            <p className="text-center">Loading details...</p>
+                            <p className="text-center text-gray-700 dark:text-gray-300">
+                                Loading details...
+                            </p>
                         )}
                     </div>
                 </div>

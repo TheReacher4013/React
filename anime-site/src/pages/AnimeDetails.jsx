@@ -27,7 +27,7 @@ const AnimeDetails = () => {
     }, [id]);
 
     if (loading) return <p className="text-center mt-8">Loading...</p>;
-    if (error) return <p className="text-center mt-8 text-red-500">{error}</p>;
+    if (error) return <p className="text-center mt-8 text-amber-600">{error}</p>;
     if (!anime) return null;
 
     const trailer = anime.attributes.youtubeVideoId
@@ -55,7 +55,7 @@ const AnimeDetails = () => {
                     />
                 </div>
             ) : (
-                <p className="text-gray-500">Trailer not available.</p>
+                <p className="text-green-400">Trailer not available.</p>
             )}
         </div>
     );

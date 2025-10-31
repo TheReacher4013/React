@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const genresList = [
     "Action",
@@ -13,13 +13,24 @@ const genresList = [
 ];
 
 const GenreFilter = ({ onSelect }) => {
+    const [selectedGenre, setSelectedGenre] = useState(null);
+
+    const handleSelect = (genre) => {
+        setSelectedGenre(genre);
+        onSelect(genre);
+    };
+
     return (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-3 justify-center mt-6">
             {genresList.map((genre, index) => (
                 <button
                     key={index}
-                    onClick={() => onSelect(genre)}
-                    className="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300"
+                    onClick={() => handleSelect(genre)}
+                    className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 
+            ${selectedGenre === genre
+                            ? "bg-amber-400 text-white shadow-md scale-105"
+                            : "bg-gray-800 text-gray-300 hover:bg-amber-400 hover:text-white"
+                        }`}
                 >
                     {genre}
                 </button>
@@ -29,3 +40,4 @@ const GenreFilter = ({ onSelect }) => {
 };
 
 export default GenreFilter;
+

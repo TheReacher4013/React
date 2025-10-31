@@ -13,7 +13,7 @@ const LandingPage = () => {
     const fetchWithCache = async (url, cacheKey, retryCount = 0) => {
         const cached = localStorage.getItem(cacheKey);
         if (cached) {
-            console.log(` Loaded from cache: ${cacheKey}`);
+            console.log(`Loaded from cache: ${cacheKey}`);
             return JSON.parse(cached);
         }
 
@@ -22,7 +22,7 @@ const LandingPage = () => {
 
             if (res.status === 429) {
                 if (retryCount < 2) {
-                    console.warn(` Too many requests — retrying in 3s (attempt ${retryCount + 1})`);
+                    console.warn(`Too many requests — retrying in 3s (attempt ${retryCount + 1})`);
                     await new Promise((r) => setTimeout(r, 3000));
                     return fetchWithCache(url, cacheKey, retryCount + 1);
                 } else {
@@ -60,10 +60,10 @@ const LandingPage = () => {
 
     return (
         <div className="relative bg-gray-900 text-white overflow-hidden">
-            {/* Background gradient overlay */}
+            {/* Background overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70 z-0"></div>
 
-            {/*  MAIN HERO SLIDER */}
+            {/* HERO SLIDER */}
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 spaceBetween={20}
@@ -82,7 +82,7 @@ const LandingPage = () => {
                                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                             />
 
-                            <div className="absolute bottom-16 left-10 max-w-lg z-10">
+                            <div className="absolute bottom-16 left-10 max-w-lg z-10 bg-black/40 p-4 rounded-lg">
                                 <h2 className="text-4xl font-bold mb-3 drop-shadow-md">{anime.title}</h2>
                                 <p className="text-gray-300 text-sm mb-5 line-clamp-3">
                                     {anime.synopsis?.slice(0, 200)}...
@@ -111,13 +111,15 @@ const LandingPage = () => {
                 ))}
             </Swiper>
 
-            {/*  TRENDING ROW */}
-            <div className="mt-12 px-8">
-                <h3 className="text-2xl font-semibold mb-4">🔥 Trending Now</h3>
+            {/* TRENDING NOW ROW */}
+            <div className="mt-14 px-8 pb-20"> {/* Added pb-20 for bottom spacing */}
+                <h3 className="text-2xl font-semibold mb-6 flex items-center gap-2">
+                    🔥 Trending Now
+                </h3>
 
                 <Swiper
                     modules={[Navigation, Autoplay]}
-                    spaceBetween={15}
+                    spaceBetween={25}
                     slidesPerView={6}
                     navigation
                     autoplay={{ delay: 3500, disableOnInteraction: false }}
@@ -133,7 +135,9 @@ const LandingPage = () => {
                                         className="w-full h-full object-cover"
                                     />
                                 </div>
-                                <p className="mt-2 text-center text-sm font-medium truncate">{anime.title}</p>
+                                <p className="mt-3 text-center text-sm font-medium truncate text-gray-200">
+                                    {anime.title}
+                                </p>
                             </div>
                         </SwiperSlide>
                     ))}
