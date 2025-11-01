@@ -114,7 +114,7 @@ const LandingPage = () => {
             {/* TRENDING NOW ROW */}
             <div className="mt-14 px-8 pb-20"> {/* Added pb-20 for bottom spacing */}
                 <h3 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-                    🔥 Trending Now
+                    🔥Trending Now
                 </h3>
 
                 <Swiper

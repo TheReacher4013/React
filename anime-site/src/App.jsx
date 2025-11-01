@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import TopAnime from "./pages/TopAnime";
 import AnimeDetail from "./pages/AnimeDetails";
-import LandingPage from './pages/LandingPage';
+// import LandingPage from './pages/LandingPage';
 
 const App = () => {
   return (

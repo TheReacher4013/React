@@ -76,18 +76,18 @@ const Home = () => {
         }
     };
 
-    // 🔹 Fetch when debounced query or page changes
+    //  Fetch when debounced query or page changes
     useEffect(() => {
         fetchAnimes(debouncedQuery, page);
     }, [debouncedQuery, page]);
 
-    // 🔹 Handle search input
+    //  Handle search input
     const handleSearch = (searchQuery) => {
         setQuery(searchQuery);
         setPage(1);
     };
 
-    // 🔹 Infinite scroll (with delay)
+    // Infinite scroll (with delay)
     const handleScroll = () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 2 && !loading) {
             setTimeout(() => setPage((prev) => prev + 1), 600);

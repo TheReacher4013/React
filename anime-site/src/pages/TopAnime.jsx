@@ -29,7 +29,7 @@ const TopAnime = () => {
             if (data && Array.isArray(data.data)) {
                 setAnimes((prev) => {
                     const combined = pageNum === 1 ? data.data : [...prev, ...data.data];
-                    // 🔹 Remove duplicates by mal_id
+                    //  Remove duplicates by mal_id
                     const unique = combined.filter(
                         (v, i, arr) => arr.findIndex((a) => a.mal_id === v.mal_id) === i
                     );
@@ -65,7 +65,7 @@ const TopAnime = () => {
 
     return (
         <div className="p-8">
-            <h1 className="text-3xl font-bold text-center mb-6">🔥 Top Anime</h1>
+            <h1 className="text-3xl font-bold text-center mb-6">🔥Top Anime</h1>
 
             {errorMsg && (
                 <p className="text-center text-red-500 mb-4 font-semibold">{errorMsg}</p>
