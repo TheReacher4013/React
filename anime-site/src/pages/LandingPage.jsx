@@ -134,6 +134,7 @@ const LandingPage = () => {
                                         alt={anime.title}
                                         className="w-full h-full object-cover"
                                     />
+                                    
                                 </div>
                                 <p className="mt-3 text-center text-sm font-medium truncate text-gray-200">
                                     {anime.title}
