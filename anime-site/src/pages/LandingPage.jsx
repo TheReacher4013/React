@@ -63,7 +63,7 @@ const LandingPage = () => {
             {/* Background overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-70 z-0"></div>
 
-            {/* HERO SLIDER */}
+          
             <Swiper
                 modules={[Navigation, Pagination, Autoplay]}
                 spaceBetween={20}
@@ -71,21 +71,21 @@ const LandingPage = () => {
                 navigation
                 pagination={{ clickable: true }}
                 autoplay={{ delay: 4000, disableOnInteraction: false }}
-                className="w-full h-[80vh] rounded-b-2xl"
+                className="w-full h-[45vh] md:h-[40vh] lg:h-[52vh] rounded-b-xl overflow-hidden"
             >
                 {featured.map((anime, i) => (
                     <SwiperSlide key={`${anime.mal_id}-${i}`}>
-                        <div className="relative w-full h-[80vh]">
+                        <div className="relative w-full h-[45vh] md:h-[40vh] lg:h-[52vh]">
                             <img
                                 src={anime.images.jpg.large_image_url}
                                 alt={anime.title}
-                                className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                                className="max-w-[80%] mx-auto h-full object-cover object-center transition-transform duration-700 hover:scale-95"
                             />
 
-                            <div className="absolute bottom-16 left-10 max-w-lg z-10 bg-black/40 p-4 rounded-lg">
-                                <h2 className="text-4xl font-bold mb-3 drop-shadow-md">{anime.title}</h2>
-                                <p className="text-gray-300 text-sm mb-5 line-clamp-3">
-                                    {anime.synopsis?.slice(0, 200)}...
+                            <div className="absolute bottom-6 left-6 max-w-md z-10 bg-black/50 p-4 rounded-lg backdrop-blur-sm">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-2">{anime.title}</h2>
+                                <p className="text-gray-300 text-sm mb-3 line-clamp-2">
+                                    {anime.synopsis?.slice(0, 160)}...
                                 </p>
 
                                 {anime.trailer?.url ? (
@@ -93,14 +93,14 @@ const LandingPage = () => {
                                         href={anime.trailer.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg transition"
+                                        className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition"
                                     >
                                         ▶ Watch Trailer
                                     </a>
                                 ) : (
                                     <button
                                         disabled
-                                        className="bg-gray-500 text-white px-6 py-2 rounded-lg opacity-50 cursor-not-allowed"
+                                        className="bg-gray-600 text-white px-4 py-2 rounded-md opacity-60 cursor-not-allowed"
                                     >
                                         No Trailer
                                     </button>
@@ -110,6 +110,7 @@ const LandingPage = () => {
                     </SwiperSlide>
                 ))}
             </Swiper>
+
 
             {/* TRENDING NOW ROW */}
             <div className="mt-14 px-8 pb-20"> {/* Added pb-20 for bottom spacing */}
