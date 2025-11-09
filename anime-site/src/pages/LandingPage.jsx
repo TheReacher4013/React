@@ -83,8 +83,8 @@ const LandingPage = () => {
                             />
 
                             <div className="absolute bottom-6 left-6 max-w-md z-10 bg-black/50 p-4 rounded-lg backdrop-blur-sm">
-                                <h2 className="text-2xl md:text-3xl font-bold mb-2">{anime.title}</h2>
-                                <p className="text-gray-300 text-sm mb-3 line-clamp-2">
+                                <h2 className="text-2xl md:text-3xl font-bold mb-1">{anime.title}</h2>
+                                <p className="text-gray-300 text-sm mb-1 justify-end  line-clamp-2">
                                     {anime.synopsis?.slice(0, 160)}...
                                 </p>
 
@@ -100,7 +100,7 @@ const LandingPage = () => {
                                 ) : (
                                     <button
                                         disabled
-                                        className="bg-gray-600 text-white px-4 py-2 rounded-md opacity-60 cursor-not-allowed"
+                                        className="bg-orange-700 text-black px-4 py-2 rounded-md cursor-not-allowed"
                                     >
                                         No Trailer
                                     </button>
