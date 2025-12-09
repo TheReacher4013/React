@@ -7,7 +7,7 @@ const AddTodo = ({ onTodoAdded }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await addTodo(title, description);
 
