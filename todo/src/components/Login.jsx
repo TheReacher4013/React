@@ -1,13 +1,20 @@
 import React, { useState } from 'react'
 import Header from './Header';
 import { signin } from '../service/todo.service';
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
   const [user, setUser] =useState({});
+  
+  const navigate = useNavigate();
+
   const submitHandle = async (e)=>{
     e.preventDefault();
-    const message = await signin(user.email, user.password);
-    alert(message);
+    const response = await signin(user.email, user.password);
+    localStorage.setItem("authtoken", response.authtoken);
+    alert(response.message);
+    navigate("/todos");
   }
   return( 
   <>
