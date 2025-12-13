@@ -49,4 +49,24 @@ const addTodo = async (title, description) => {
     }
 }
 
-export { signup, signin, getAllTodos ,addTodo};
+const deleteTodo = async (id) => {
+    try {
+        const response = await axios.delete(baseUrl + "/todo/" + id, httpOptions);
+        return response.data.message;
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+
+const editTodo = async (id, newTitle, newDesc) => {
+    try {
+        const response = await axios.put(baseUrl + "/todo/" + id, { title: newTitle, description: newDesc }, httpOptions);
+        return response.data.message;
+    } catch (error) {
+        console.log(error);
+
+    }
+}
+export { signup, signin, getAllTodos ,addTodo,deleteTodo, editTodo};
+
