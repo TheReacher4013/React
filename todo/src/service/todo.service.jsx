@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const authtoken = localStorage.getItem("authtoken");
-const baseUrl = "http://localhost:3000"
+const baseUrl = "https://node-93sa.onrender.com"
 
 const httpOptions = {
     headers: {
